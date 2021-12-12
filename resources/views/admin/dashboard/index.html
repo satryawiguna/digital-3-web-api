@@ -1,0 +1,93 @@
+<div class="page-content-inner" style="background-image: url(./assets/common/images/admin/dashboard/1.jpg); height: 100vh;">
+
+    <!-- Dashboard -->
+    <div class="dashboard-container">
+    </div>
+    <!-- End Dashboard -->
+
+</div>
+
+
+<!-- Page Scripts -->
+<script>
+    $(function () {
+
+        ///////////////////////////////////////////////////////////
+        // COUNTERS
+        $('.counter-init').countTo({
+            speed: 1500
+        });
+
+        ///////////////////////////////////////////////////////////
+        // CUSTOM SCROLL
+        if (!ParadiseExplorers.hasTouch) {
+            $('.custom-scroll').each(function () {
+                $(this).jScrollPane({
+                    autoReinitialise: true,
+                    autoReinitialiseDelay: 100
+                });
+                var api = $(this).data('jsp'),
+                        throttleTimeout;
+                $(window).bind('resize', function () {
+                    if (!throttleTimeout) {
+                        throttleTimeout = setTimeout(function () {
+                            api.reinitialise();
+                            throttleTimeout = null;
+                        }, 50);
+                    }
+                });
+            });
+        }
+
+        ///////////////////////////////////////////////////////////
+        // CHART 1
+        new Chartist.Line(".chart-line", {
+            labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            series: [
+                [12, 9, 7, 8, 5],
+                [2, 1, 3.5, 7, 3],
+                [1, 3, 4, 5, 6]
+            ]
+        }, {
+            fullWidth: !0,
+            chartPadding: {
+                right: 40
+            },
+            plugins: [
+                Chartist.plugins.tooltip()
+            ]
+        });
+
+        ///////////////////////////////////////////////////////////
+        // CHART 2
+        var overlappingData = {
+                    labels: ["Jan", "Feb", "Mar", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                    series: [
+                        [5, 4, 3, 7, 5, 10, 3, 4, 8, 10, 6, 8],
+                        [3, 2, 9, 5, 4, 6, 4, 6, 7, 8, 7, 4]
+                    ]
+                },
+                overlappingOptions = {
+                    seriesBarDistance: 10,
+                    plugins: [
+                        Chartist.plugins.tooltip()
+                    ]
+                },
+                overlappingResponsiveOptions = [
+                    ["", {
+                        seriesBarDistance: 5,
+                        axisX: {
+                            labelInterpolationFnc: function (value) {
+                                return value[0]
+                            }
+                        }
+                    }]
+                ];
+
+        new Chartist.Bar(".chart-overlapping-bar", overlappingData, overlappingOptions, overlappingResponsiveOptions);
+
+        $('body').addClass('mode-superclean');
+
+    });
+</script>
+<!-- End Page Scripts -->

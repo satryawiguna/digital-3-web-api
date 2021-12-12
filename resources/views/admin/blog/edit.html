@@ -1,0 +1,197 @@
+<div class="page-content-inner">
+
+    <!-- Edit Blog -->
+    <section class="panel">
+        <div class="panel-body">
+            <div class="row">
+                <form id="form-validation" name="form-validation" method="POST" validate="update()">
+                    <div class="col-lg-10">
+                        <h2>Edit Blog</h2>
+                        <br />
+                        <div class="margin-bottom-50">
+                            <div class="form-group row" style="height: 30px;">
+                                <div class="col-md-2">
+                                    <label class="form-control-label text-uppercase"
+                                           for="validation-title">Title</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <input type="text"
+                                           id="validation-title"
+                                           class="form-control"
+                                           placeholder="Title"
+                                           ng-model="data.title"
+                                           ng-blur="getSlug(data.title)"
+                                           name="validation[title]"
+                                           data-validation="[NOTEMPTY]">
+                                </div>
+                            </div>
+                            <span><strong>Slug:&nbsp;</strong><i>{{ data.slug }}</i><i ng-if="loadingSlug" class="fa fa-spinner fa-spin fa-1x fa-fw"></i></span><br/><br/>
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <textarea ui-tinymce="tinymceOptions" ng-model="data.contents"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary width-150" ng-disabled="loadingSlug" ladda="loading" data-style="expand-right">Update</button>
+                                <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="margin-bottom-50">
+                            <div class="blog">
+                                <div class="form-group">
+                                    <div class="col-md-5">
+                                        <label class="form-control-label" for="validation-title"><i class="fa fa-power-off"></i>&nbsp;Status</label>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div class="dropdown margin-inline">
+                                            <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                {{ data.status | blogStatus }}
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="" role="menu">
+                                                <a class="dropdown-item" href="javascript: void(0)" ng-click="data.status = 0">Draft</a>
+                                                <a class="dropdown-item" href="javascript: void(0)" ng-click="data.status = 1">Publish</a>
+                                                <a class="dropdown-item" href="javascript: void(0)" ng-click="data.status = 2">Pendding</a>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-5">
+                                        <label class="form-control-label" for="validation-title"><i class="fa fa-calendar"></i>&nbsp;Publish</label>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <label class="form-control-label" style="white-space: nowrap;">{{ data.publish | date:'yyyy-MM-dd HH:mm a' }}</label>
+                                        <input type="hidden"
+                                               id="validation-user_id"
+                                               name="validation[user_id]"
+                                               ng-model="data.user_id" />
+                                    </div>
+                                </div>
+                                <br style="clear: both;"/>
+                            </div>
+                            <br/><br/>
+                            <h4>Categories</h4>
+                            <div class="blog-category">
+                                <ul>
+                                    <li ng-repeat="blogCategory in blogCategories" ng-include="'categoryTree'"></li>
+                                </ul>
+                            </div>
+                            <br/><br/>
+                            <h4>Tags</h4>
+                            <div class="form-group">
+                                <ui-select multiple
+                                           ng-model="data.blog_tag"
+                                           theme="bootstrap"
+                                           title="Choose a blog tag"
+                                           spinner-enabled="true"
+                                           spinner-class="glyphicon-refresh ui-select-spin">
+                                    <ui-select-match placeholder="- Please Choose -">{{ $item.name }}</ui-select-match>
+                                    <ui-select-choices refresh="refreshBlogTag($select.search)"
+                                                       refresh-delay="0"
+                                                       minimum-input-length="3"
+                                                       repeat="blogTag.id as blogTag in blogTags | propsFilter: { name: $select.search }">
+                                        <div ng-bind-html="blogTag.name | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <br />
+                                <i>You could add a new tag trough by use the link below</i><br /><br />
+                                <a href="javascript: void(0)" ng-click="openBlogTag()"><i class="fa fa-plus-square"></i>&nbsp;Add New Tag</a>
+                            </div>
+                            <br/><br/>
+                            <h4>Featured Image</h4>
+                            <img id="image-featured_image" style="width: 100%;" />
+                            <hr />
+                            <a id="remove-featured_image"
+                               href="javascript: void(0)"
+                               ng-click="removeFeaturedImage()">
+                                <i class="fa fa-minus-square"></i>&nbsp;Remove Featured Image
+                            </a>
+                            <a id="set-featured_image"
+                               href="/filemanager/dialog.php?type=1&field_id=validation-featured_image&akey={{ fileManager.akey }}"
+                               class="iframe"
+                               ng-init="setFeaturedImage()">
+                                <i class="fa fa-plus-square"></i>&nbsp;Set Featured Image
+                            </a>
+                            <input type="text"
+                                   id="validation-featured_image"
+                                   name="validation[featured_image]"
+                                   ng-model="data.featured_image_url" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- End Edit Blog -->
+
+</div>
+
+<!-- Template Scripts -->
+<script type="text/ng-template" id="categoryTree">
+    <label>
+        <input type="checkbox" id="validation-blog_category" name="validation[blog_category]" checklist-model="data.blog_category" checklist-value="blogCategory.id" />&nbsp;&nbsp;{{ blogCategory.name }}
+    </label>
+    <ul ng-if="blogCategory.dto">
+        <li ng-repeat="blogCategory in blogCategory.dto" ng-include="'categoryTree'"></li>
+    </ul>
+</script>
+<script type="text/ng-template" id="blogTag.html">
+    <div class="modal-content">
+        <form id="form-validation-tag" name="form-tag" method="POST" validate="create()">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Blog Tag</h4>
+            </div>
+            <div class="modal-body detail">
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <label class="form-control-label text-uppercase" for="validation-name">Name</label>
+                    </div>
+                    <div class="col-md-10">
+                        <input type="text"
+                               id="validation-name"
+                               class="form-control"
+                               placeholder="Name"
+                               ng-model="data.name"
+                               ng-blur="getSlug(data.name)"
+                               name="validation[name]"
+                               data-validation="[NOTEMPTY]">
+                    </div>
+                </div>
+                <span><strong>Slug:&nbsp;</strong><i><label id="label-slug" ng-bind-html="data.slug"></label></i><i ng-if="loadingSlug" class="fa fa-spinner fa-spin fa-1x fa-fw"></i></span>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary width-150" ng-disabled="loadingSlug" ladda="loading" data-style="expand-right">Create</button>
+                <button type="button" class="btn btn-default" ng-click="closeBlogTag()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</script>
+<!-- End Template Scripts-->
+
+<!-- Page Scripts -->
+<script>
+    $(function () {
+
+        $('#validation-featured_image').css("visibility", "hidden");
+
+        $('#validation-featured_image').observe_field(1, function() {
+            $('#validation-featured_image').trigger('input');
+
+            if (this.value != '') {
+                $('#image-featured_image').show();
+                $('#remove-featured_image').show();
+                $('#set-featured_image').hide();
+
+                $('#image-featured_image').attr('src', this.value);
+            }
+        });
+
+    })
+
+    function responsive_filemanager_callback() {
+        parent.$.fancyboxPlus.close();
+    }
+</script>
+<!-- End Page Scripts-->

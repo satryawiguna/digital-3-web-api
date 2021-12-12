@@ -1,0 +1,140 @@
+@import url(helpers/fonts.css);
+@import url(helpers/typography.css);
+@import url(helpers/base.default.css);
+@import url(helpers/base.responsive.css);
+@import url(helpers/rtl.version.css);
+@import url(themes/theme-dark.css);
+@import url(themes/theme-blue.css);
+@import url(themes/theme-green.css);
+@import url(themes/theme-orange.css);
+@import url(themes/theme-red.css);
+@import url(themes/theme-inverse.css);
+@import url(forms/basic-form-elements.css);
+@import url(forms/buttons.css);
+@import url(forms/dropdowns.css);
+@import url(forms/checkboxes-radio.css);
+@import url(forms/form-validation.css);
+@import url(forms/selectboxes.css);
+@import url(forms/autocomplete.css);
+@import url(components/utilities.css);
+@import url(components/tables.css);
+@import url(components/steps.css);
+@import url(components/tooltips-popovers.css);
+@import url(components/modal.css);
+@import url(components/progress-bars.css);
+@import url(components/badges-labels.css);
+@import url(components/pagination.css);
+@import url(components/collapse.css);
+@import url(components/tabs.css);
+@import url(components/notifications-alerts.css);
+@import url(components/carousel.css);
+@import url(components/widgets.css);
+@import url(vendors/jscrollpane.css);
+@import url(vendors/select2.css);
+@import url(vendors/eonasdan-bootstrap-datetimepicker.css);
+@import url(vendors/fullcalendar.css);
+@import url(vendors/summernote.css);
+@import url(vendors/ionrangeslider.css);
+@import url(vendors/nestable.css);
+@import url(vendors/datatables-fixedcolumns.css);
+@import url(vendors/datatables-responsive.css);
+@import url(vendors/editable-table.css);
+@import url(vendors/chartist.css);
+@import url(vendors/chartist-tooltip-plugin.css);
+@import url(pages/pricing-table.css);
+@import url(apps/profile.css);
+@import url(apps/messaging.css);
+@import url(apps/mail.css);
+@import url(apps/calendar.css);
+@import url(apps/gallery.css);
+
+.error h1 {
+    font: bold 100px arial;
+}
+
+.error p {
+    font: normal 15px arial;
+    line-height: 25px;
+}
+
+.detail {
+    padding-top: 25px;
+    margin-bottom: 25px;
+}
+
+.detail .avatar {
+    width: 175px;
+    height: 175px;
+    margin-bottom: 20px;
+    padding: 5px;
+    background: #ffffff;
+}
+
+.detail .avatar img {
+    -webkit-border-radius: 100%;
+    border-radius: 100%;
+}
+
+.blog,
+.product {
+    border: 1px solid #dfe4ed;
+    background: #fdfdfd;
+    border-radius: 3px;
+    padding: 15px 5px 10px 5px;
+}
+
+.blog-category,
+.product-genre {
+    height: 250px;
+    overflow-y: scroll;
+    border: 1px solid #dfe4ed;
+    background: #fdfdfd;
+    border-radius: 3px;
+    padding: 15px 5px 10px 5px;
+}
+
+.product-type {
+    border: 1px solid #dfe4ed;
+    background: #fdfdfd;
+    border-radius: 3px;
+    padding: 15px 5px 10px 5px;
+}
+
+.blog-category ul,
+.product-genre ul,
+.product-type ul {
+    padding: 0px;
+    margin: 0px;
+}
+
+.blog-category ul li,
+.product-genre ul li,
+.product-type ul li {
+    list-style: none;
+    margin-left: 15px;
+    padding: 0px 0px 3px 0px;
+}
+
+#set-image,
+#set-video {
+    border: 3px dotted #ccc;
+    height: 175px;
+    width: 175px;
+    position: relative;
+    display: block;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+#set-image p,
+#set-video p {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.angular-input-stars > li {
+    font-size: 25px;
+}

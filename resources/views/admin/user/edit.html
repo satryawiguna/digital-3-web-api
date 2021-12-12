@@ -1,0 +1,120 @@
+<div class="page-content-inner">
+
+    <!-- Edit User -->
+    <section class="panel">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Edit User</h2>
+                    <br />
+                    <div class="margin-bottom-50">
+                        <form id="form-validation" name="form-validation" method="POST" validate="update()">
+                            <div class="form-group row">
+                                <div class="col-md-2">
+                                    <label class="form-control-label text-uppercase" for="validation-role">Role</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <select id="validation-role"
+                                            class="form-control"
+                                            name="validation[role]"
+                                            ng-model="data.role.id"
+                                            data-validation="[NOTEMPTY]"
+                                            ng-init="initializeRole()"
+                                            ng-options='role.id as role.role for role in roles'>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-2">
+                                    <label class="form-control-label text-uppercase" for="validation-email">Email</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <input type="text"
+                                           id="validation-email"
+                                           class="form-control"
+                                           placeholder="Email"
+                                           name="validation[email]"
+                                           ng-model="data.email"
+                                           data-validation="[NOTEMPTY]"
+                                           readonly>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-2">
+                                    <label class="form-control-label text-uppercase" for="validation-password">Password</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <input type="password"
+                                           id="validation-password"
+                                           class="form-control"
+                                           placeholder="Password"
+                                           name="validation[password]"
+                                           ng-model="data.password">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-2">
+                                    <label class="form-control-label text-uppercase" for="validation-confirmation_password">Confirm Password</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <input type="password"
+                                           id="validation-confirmation_password"
+                                           class="form-control"
+                                           placeholder="Confirmation Password"
+                                           name="validation[confirmation_password]">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-2">
+                                    <label class="form-control-label text-uppercase" for="validation-handphone">Handphone</label>
+                                </div>
+                                <div class="col-md-1">
+                                    <select id="validation-handphone_code"
+                                            class="form-control"
+                                            name="validation[handphone_code]"
+                                            ng-model="data.handphone_code_id"
+                                            data-validation="[NOTEMPTY]"
+                                            ng-init="initializeHandphoneCode()"
+                                            ng-options="handphone_code.id as handphone_code.code for handphone_code in handphone_codes"
+                                            disabled>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text"
+                                           id="validation-handphone"
+                                           class="form-control"
+                                           placeholder="Handphone"
+                                           ng-model="data.handphone"
+                                           name="validation[handphone]"
+                                           data-validation="[NOTEMPTY, INTEGER]"
+                                           readonly>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-2">
+                                    <label class="form-control-label text-uppercase">Status</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="btn-group">
+                                        <label class="btn btn-success" ng-model="data.status" uib-btn-radio="1">Enable</label>
+                                        <label class="btn btn-success" ng-model="data.status" uib-btn-radio="0">Disable</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <input type="hidden"
+                                       id="validation-id"
+                                       class="form-control"
+                                       ng-model="data.id">
+                                <button type="submit" class="btn btn-primary width-150" ladda="loading" data-style="expand-right">Update</button>
+                                <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Edit User -->
+
+</div>

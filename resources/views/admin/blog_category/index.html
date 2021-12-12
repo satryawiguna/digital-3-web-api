@@ -1,0 +1,22 @@
+<div class="page-content-inner">
+
+    <!-- Blog Category -->
+    <section class="panel">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Blog Category</h2>
+                    <br />
+                    <button type="button" class="btn btn-success" ng-click="up()" ng-show="parentId !== 0"><i class="fa fa-undo"></i></button>
+                    <button type="button" class="btn btn-success" ng-click="add()"><i class="fa fa-plus"></i>&nbsp;Add Blog Category</button>
+                    <button type="button" class="btn btn-success" ng-click="reloadData()"><i class="icmn-loop3"></i>&nbsp;Refresh</button>
+                    <div class="margin-bottom-50">
+                        <table datatable dt-options="dtOptions" dt-columns="dtColumns" dt-instance="dtInstance" class="table table-hover table-striped"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Blog Category -->
+
+</div>
